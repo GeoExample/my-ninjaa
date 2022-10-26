@@ -1,23 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import Blogs from "./Blogs";
+import useFetch from "./ourHooks/useFetch";
 
 function App() {
+  const { blogs, pending, err } = useFetch(
+    "https://fakerapi.it/api/v1/books?_quantity=5"
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      {pending && <div>Loading...</div>}
+      {err && <div>Something Wrong here!</div>}
+      {blogs && <Blogs blogs={blogs} />}
     </div>
   );
 }
